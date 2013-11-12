@@ -2,8 +2,16 @@ require 'spec_helper'
 
 describe Phil do
 
+  def count_words(content)
+    content.split(' ').length
+  end
+
   def count_elements(tag, content)
     content.scan(/<#{tag}>(.[^<>]*)<\/#{tag}>/).size
+  end
+
+  def each_element(tag, content)
+    content.scan(/<#{tag}>(.[^<>]*)<\/#{tag}>/).each {|str| yield(str.join) }
   end
 
   def expect_element(tag, content)
@@ -72,7 +80,6 @@ describe Phil do
     end
 
     it 'does something approx. 1/10 of the time' do
-      idx = 0
       1000.times do
         Phil.sometimes(10) {|i| values.push(i) }
       end
@@ -123,15 +130,99 @@ describe Phil do
 
   describe '#blockquote' do
 
-    subject { Phil.blockquote }
-
     context 'default value' do
+      bq = Phil.blockquote
       it 'outputs a blockquote' do
-        expect_element('blockquote', subject)
+        expect_element('blockquote', bq)
       end
       it 'contains 1..3 paragraphs' do
-        expect(1..3).to cover(count_elements('p', subject))
+        expect(1..3).to cover(count_elements('p', bq))
       end
+    end
+
+    context 'custom value' do
+      bq = Phil.blockquote(5..10)
+      it 'contains 5..10 paragraphs' do
+        expect(5..10).to cover(count_elements('p', bq))
+      end
+    end
+
+  end
+
+  describe '#ul' do
+
+    context 'default value' do
+
+      ul = Phil.ul
+
+      it 'outputs a ul' do
+        expect_element('ul', ul)
+      end
+      it 'contains 3..10 list items' do
+        expect(3..10).to cover(count_elements('li', ul))
+      end
+      it 'each containing 3..15 words' do
+        each_element('li', ul) do |li|
+          expect(3..15).to cover(count_words(li))
+        end
+      end
+
+    end
+
+    context 'custom values' do
+
+      li_count = (15..20)
+      word_count = (20..22)
+      bq = Phil.ul li_count, word_count
+
+      it "contains #{li_count} list items" do
+        expect(li_count).to cover(count_elements('li', bq))
+      end
+      it "each containing #{word_count} words" do
+        each_element('li', bq) do |li|
+          expect(word_count).to cover(count_words(li))
+        end
+      end
+
+    end
+
+  end
+
+  describe '#ul' do
+
+    context 'default value' do
+
+      ul = Phil.ul
+
+      it 'outputs a ul' do
+        expect_element('ul', ul)
+      end
+      it 'contains 3..10 list items' do
+        expect(3..10).to cover(count_elements('li', ul))
+      end
+      it 'each containing 3..15 words' do
+        each_element('li', ul) do |li|
+          expect(3..15).to cover(count_words(li))
+        end
+      end
+
+    end
+
+    context 'custom values' do
+
+      li_count = (15..20)
+      word_count = (20..22)
+      bq = Phil.ul li_count, word_count
+
+      it "contains #{li_count} list items" do
+        expect(li_count).to cover(count_elements('li', bq))
+      end
+      it "each containing #{word_count} words" do
+        each_element('li', bq) do |li|
+          expect(word_count).to cover(count_words(li))
+        end
+      end
+
     end
 
   end

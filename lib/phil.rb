@@ -96,10 +96,11 @@ module Phil
 
     private
 
-    def tag(name, content = nil, children = (3..10))
+    def tag(name, content = nil, children = nil)
       case name
         when "ul", "ol"
           content ||= (3..15)
+          children ||= (3..10)
           build_tag name, build_tags("li", content, children)
         when "blockquote"
           content ||= (1..3)
