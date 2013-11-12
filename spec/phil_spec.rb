@@ -38,14 +38,14 @@ describe Phil do
     context 'with a single number' do
       let(:argument) { 5 }
       it 'loops 5 times' do
-        expect(subject).to eq(5)
+        expect(subject).to eq(argument)
       end
     end
     
     context 'with a range' do
       let(:argument) { (10..20) }
       it 'gives one of the arguments back' do
-        expect(10..20).to cover(subject)
+        expect(argument).to cover(subject)
       end
     end
 
@@ -79,14 +79,34 @@ describe Phil do
     context 'with a single number' do
       let(:argument) { 5 }
       it 'outputs 5 words' do
-        expect(subject.split(' ').length).to eq(5)
+        expect(subject.split(' ').length).to eq(argument)
       end
     end
 
     context 'with a range' do
       let(:argument) { (10..20) }
-      it 'outputs 5 words' do
+      it 'outputs 10..20 words' do
         expect(argument).to cover(subject.split(' ').length)
+      end
+    end
+
+  end
+
+  describe '#paragraphs' do
+
+    subject { Phil.paragraphs(argument) }
+
+    context 'with a single number' do
+      let(:argument) { 5 }
+      it 'outputs 5 paragraphs' do
+        expect(subject.split('</p><p>').length).to eq(argument)
+      end
+    end
+
+    context 'with a range' do
+      let(:argument) { (10..20) }
+      it 'outputs 10..20' do
+        expect(argument).to cover(subject.split('</p><p>').length)
       end
     end
 
