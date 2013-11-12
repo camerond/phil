@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe Phil do
 
+  def count_elements(tag, content)
+    content.scan(/<#{tag}>(.[^<>]*)<\/#{tag}>/).size
+  end
+
+  def expect_element(tag, content)
+    expect(content).to start_with "<#{tag}>"
+    expect(content).to end_with "</#{tag}>"
+  end
+
   describe '#pick' do
 
     subject { Phil.pick(argument) }
@@ -105,8 +114,23 @@ describe Phil do
 
     context 'with a range' do
       let(:argument) { (10..20) }
-      it 'outputs 10..20' do
-        expect(argument).to cover(subject.split('</p><p>').length)
+      it 'outputs 10..20 paragraphs' do
+        expect(argument).to cover(count_elements('p', subject))
+      end
+    end
+
+  end
+
+  describe '#blockquote' do
+
+    subject { Phil.blockquote }
+
+    context 'default value' do
+      it 'outputs a blockquote' do
+        expect_element('blockquote', subject)
+      end
+      it 'contains 1..3 paragraphs' do
+        expect(1..3).to cover(count_elements('p', subject))
       end
     end
 
