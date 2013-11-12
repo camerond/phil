@@ -29,7 +29,28 @@ module Phil
     end
 
     def paragraphs(num)
-      Faker::Lorem.paragraphs(pick(num)).map{|text| "<p>#{text}</p>"}.join.html_safe
+      content_method = -> { Faker::Lorem.paragraphs(1).join }
+      build_tags "p", content_method, pick(num)
+    end
+
+    def ul(list_items = nil, item_length = nil)
+      tag "ul", item_length, list_items
+    end
+
+    def ol(list_items = nil, item_length = nil)
+      tag "ol", item_length, list_items
+    end
+
+    def blockquote(paragraphs = nil)
+      tag "blockquote", paragraphs
+    end
+
+    def link_list(list_items = (3..10), item_length = (1..5))
+      build_tag "ul", build_tags("li", -> { "<a href='#'>#{words(item_length)}</a>" }, list_items)
+    end
+
+    def body_content(pattern="h1 p p h2 p ol h2 p ul")
+      pattern.split(" ").map{ |t| tag(t) }.join.html_safe
     end
 
     def currency(num, symbol = "$")
@@ -71,6 +92,33 @@ module Phil
 
     def state_abbr
       Faker::AddressUS.state_abbr
+    end
+
+    private
+
+    def tag(name, content = nil, children = (3..10))
+      case name
+        when "ul", "ol"
+          content ||= (3..15)
+          build_tag name, build_tags("li", content, children)
+        when "blockquote"
+          content ||= (1..3)
+          build_tag name, paragraphs(content)
+        when "p"
+          paragraphs(1)
+        else
+          content ||= (3..15)
+          build_tags name, content
+      end
+    end
+
+    def build_tags(name, content, elements = 1)
+      content_method = if content.is_a? Proc then content else -> { words(content) } end
+      pick(elements).times.map { build_tag(name, content_method.call) }.join.html_safe
+    end
+
+    def build_tag(name, content)
+      "<#{name}>#{content}</#{name}>".html_safe
     end
 
   end
