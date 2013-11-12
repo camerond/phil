@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.license = "MIT"
 
   s.authors = ["Cameron Daigle"]
-  s.email = ["paul@hashrocket.com"]
+  s.email = ["cameron@hashrocket.com"]
   s.description = "Phil makes it easy to generate content for your UI mockups."
 
   s.homepage = "https://github.com/camerond/phil"
