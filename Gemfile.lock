@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    phil (0.0.1)
+      ffaker
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffaker (1.20.0)
+    rake (10.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  phil!
+  rake
