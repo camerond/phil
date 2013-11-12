@@ -51,8 +51,8 @@ Phil.body_content "h1 p h2 ul p blockquote h5 h6"
 ### Lorem methods (all take ranges or numbers)
 
 ```ruby
-Phil.lorem 5
-Phil.lorem 5..50
+Phil.words 5
+Phil.words 5..50
 
 Phil.paragraphs 5                       # outputs HTML markup with <p> elements
 Phil.paragraphs 5..50
