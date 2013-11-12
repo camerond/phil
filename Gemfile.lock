@@ -7,6 +7,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (3.0.0)
     diff-lcs (1.2.5)
     ffaker (1.20.0)
     rake (10.1.0)
@@ -23,6 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   phil!
   rake
   rspec

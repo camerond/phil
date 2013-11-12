@@ -72,4 +72,24 @@ describe Phil do
 
   end
 
+  describe '#words' do
+
+    subject { Phil.words(argument) }
+
+    context 'with a single number' do
+      let(:argument) { 5 }
+      it 'outputs 5 words' do
+        expect(subject.split(' ').length).to eq(5)
+      end
+    end
+
+    context 'with a range' do
+      let(:argument) { (10..20) }
+      it 'outputs 5 words' do
+        expect(argument).to cover(subject.split(' ').length)
+      end
+    end
+
+  end
+
 end
