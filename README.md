@@ -21,6 +21,7 @@ Loop a random number of times:
 ```ruby
 Phil.loop 1..100 do |i|
   "This will be output between 1 and 100 times and is index #{i}"
+end
 ```
 
 Have a 1 in N chance of doing something (N defaults to 3):
