@@ -69,7 +69,7 @@ describe Phil do
         expect(subject).to eq(argument)
       end
     end
-    
+
     context 'with a range' do
       let(:argument) { (10..20) }
       it 'gives one of the arguments back' do
@@ -140,7 +140,7 @@ describe Phil do
   end
 
   describe '#blockquote' do
-  
+
     context 'default value' do
       bq = Phil.blockquote
       it 'outputs a blockquote' do
@@ -150,22 +150,22 @@ describe Phil do
         expect(1..3).to cover(find_children(bq, 'p').size)
       end
     end
-  
+
     context 'custom value' do
       bq = Phil.blockquote(5..10)
       it 'contains 5..10 paragraphs' do
         expect(5..10).to cover(find_children(bq, 'p').size)
       end
     end
-  
+
   end
-  
+
   describe '#ul' do
-  
+
     context 'default value' do
-  
+
       ul = Phil.ul
-  
+
       it 'outputs a ul' do
         expect_element(ul, 'ul')
       end
@@ -177,15 +177,15 @@ describe Phil do
           expect(3..15).to cover(count_words(li))
         end
       end
-  
+
     end
-  
+
     context 'custom values' do
-  
+
       li_count = (15..20)
       word_count = (20..22)
       ul = Phil.ul li_count, word_count
-  
+
       it "contains #{li_count} list items" do
         expect(li_count).to cover(find_children(ul, 'li').size)
       end
@@ -194,17 +194,17 @@ describe Phil do
           expect(word_count).to cover(count_words(li))
         end
       end
-  
+
     end
-  
+
   end
-  
+
   describe '#ol' do
-  
+
     context 'default value' do
-  
+
       ol = Phil.ol
-  
+
       it 'outputs a ol' do
         expect_element(ol, 'ol')
       end
@@ -216,15 +216,15 @@ describe Phil do
           expect(3..15).to cover(count_words(li))
         end
       end
-  
+
     end
-  
+
     context 'custom values' do
-  
+
       li_count = (15..20)
       word_count = (20..22)
       ol = Phil.ol li_count, word_count
-  
+
       it "contains #{li_count} list items" do
         expect(li_count).to cover(find_children(ol, 'li').size)
       end
@@ -233,7 +233,7 @@ describe Phil do
           expect(word_count).to cover(count_words(li))
         end
       end
-  
+
     end
 
   end
@@ -397,6 +397,5 @@ describe Phil do
       end
     end
   end
-
 
 end
