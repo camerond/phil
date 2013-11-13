@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     phil (0.0.1)
+      activesupport
       ffaker
 
 GEM
@@ -24,7 +25,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
   phil!
   rake
   rspec
