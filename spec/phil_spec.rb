@@ -173,13 +173,13 @@ describe Phil do
 
       li_count = (15..20)
       word_count = (20..22)
-      bq = Phil.ul li_count, word_count
+      ul = Phil.ul li_count, word_count
 
       it "contains #{li_count} list items" do
-        expect(li_count).to cover(count_elements('li', bq))
+        expect(li_count).to cover(count_elements('li', ul))
       end
       it "each containing #{word_count} words" do
-        each_element('li', bq) do |li|
+        each_element('li', ul) do |li|
           expect(word_count).to cover(count_words(li))
         end
       end
@@ -188,20 +188,20 @@ describe Phil do
 
   end
 
-  describe '#ul' do
+  describe '#ol' do
 
     context 'default value' do
 
-      ul = Phil.ul
+      ol = Phil.ol
 
-      it 'outputs a ul' do
-        expect_element('ul', ul)
+      it 'outputs a ol' do
+        expect_element('ol', ol)
       end
       it 'contains 3..10 list items' do
-        expect(3..10).to cover(count_elements('li', ul))
+        expect(3..10).to cover(count_elements('li', ol))
       end
       it 'each containing 3..15 words' do
-        each_element('li', ul) do |li|
+        each_element('li', ol) do |li|
           expect(3..15).to cover(count_words(li))
         end
       end
@@ -212,13 +212,13 @@ describe Phil do
 
       li_count = (15..20)
       word_count = (20..22)
-      bq = Phil.ul li_count, word_count
+      ol = Phil.ol li_count, word_count
 
       it "contains #{li_count} list items" do
-        expect(li_count).to cover(count_elements('li', bq))
+        expect(li_count).to cover(count_elements('li', ol))
       end
       it "each containing #{word_count} words" do
-        each_element('li', bq) do |li|
+        each_element('li', ol) do |li|
           expect(word_count).to cover(count_words(li))
         end
       end
