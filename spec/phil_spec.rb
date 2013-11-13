@@ -104,14 +104,18 @@ describe Phil do
     subject { Phil.words(argument) }
 
     context 'with a single number' do
+
       let(:argument) { 5 }
+
       it 'outputs 5 words' do
         expect(subject.split(' ').length).to eq(argument)
       end
     end
 
     context 'with a range' do
+
       let(:argument) { (10..20) }
+
       it 'outputs 10..20 words' do
         expect(argument).to cover(subject.split(' ').length)
       end
@@ -124,14 +128,18 @@ describe Phil do
     subject { Phil.paragraphs(argument) }
 
     context 'with a single number' do
+
       let(:argument) { 5 }
+
       it 'outputs 5 paragraphs' do
         expect(find_elements(subject, 'p').size).to eq(argument)
       end
     end
 
     context 'with a range' do
+
       let(:argument) { (10..20) }
+
       it 'outputs 10..20 paragraphs' do
         expect(argument).to cover(find_elements(subject, 'p').size)
       end
@@ -142,7 +150,9 @@ describe Phil do
   describe '#blockquote' do
 
     context 'default value' do
-      bq = Phil.blockquote
+
+      let(:bq) { Phil.blockquote }
+
       it 'outputs a blockquote' do
         expect_element(bq, 'blockquote')
       end
@@ -152,7 +162,9 @@ describe Phil do
     end
 
     context 'custom value' do
-      bq = Phil.blockquote(5..10)
+
+      let(:bq) { Phil.blockquote(5..10) }
+
       it 'contains 5..10 paragraphs' do
         expect(5..10).to cover(find_children(bq, 'p').size)
       end
@@ -164,7 +176,7 @@ describe Phil do
 
     context 'default value' do
 
-      ul = Phil.ul
+      let(:ul) { Phil.ul }
 
       it 'outputs a ul' do
         expect_element(ul, 'ul')
@@ -182,14 +194,14 @@ describe Phil do
 
     context 'custom values' do
 
-      li_count = (15..20)
-      word_count = (20..22)
-      ul = Phil.ul li_count, word_count
+      let(:li_count) { 15..20 }
+      let(:word_count) { 20..22 }
+      let(:ul) { Phil.ul li_count, word_count }
 
-      it "contains #{li_count} list items" do
+      it "contains 15..20 list items" do
         expect(li_count).to cover(find_children(ul, 'li').size)
       end
-      it "each containing #{word_count} words" do
+      it "each containing 20..22 words" do
         find_children(ul, 'li').each do |li|
           expect(word_count).to cover(count_words(li))
         end
@@ -203,7 +215,7 @@ describe Phil do
 
     context 'default value' do
 
-      ol = Phil.ol
+      let(:ol) { Phil.ol }
 
       it 'outputs a ol' do
         expect_element(ol, 'ol')
@@ -221,14 +233,14 @@ describe Phil do
 
     context 'custom values' do
 
-      li_count = (15..20)
-      word_count = (20..22)
-      ol = Phil.ol li_count, word_count
+      let(:li_count) { 15..20 }
+      let(:word_count) { 20..22 }
+      let(:ol) { Phil.ol li_count, word_count }
 
-      it "contains #{li_count} list items" do
+      it "contains 15..20 list items" do
         expect(li_count).to cover(find_children(ol, 'li').size)
       end
-      it "each containing #{word_count} words" do
+      it "each containing 20..22 words" do
         find_children(ol, 'li').each do |li|
           expect(word_count).to cover(count_words(li))
         end
@@ -242,7 +254,7 @@ describe Phil do
 
     context 'default value' do
 
-      ll = Phil.link_list
+      let(:ll) { Phil.link_list }
 
       it 'outputs a ul' do
         expect_element(ll, 'ul')
@@ -262,14 +274,14 @@ describe Phil do
 
     context 'custom values' do
 
-      li_count = (15..20)
-      word_count = (20..22)
-      ll = Phil.link_list li_count, word_count
+      let(:li_count) { 15..20 }
+      let(:word_count) { 20..22 }
+      let(:ll) { Phil.link_list li_count, word_count }
 
-      it "contains #{li_count} list items" do
+      it "contains 15..20 list items" do
         expect(li_count).to cover(find_children(ll, 'li').size)
       end
-      it "each containing a link with #{word_count} words" do
+      it "each containing a link with 20..22 words" do
         find_children(ll, 'li').each do |li|
           li.nodes.each do |a|
             expect(word_count).to cover(count_words(a))
@@ -286,7 +298,7 @@ describe Phil do
 
     context 'default value' do
 
-      bc = Phil.body_content
+      let(:bc) { Phil.body_content }
 
       it 'outputs h1 p p h2 p ol h2 p ul' do
         expect_elements(bc, 'h1 p p h2 p ol h2 p ul')
@@ -296,10 +308,10 @@ describe Phil do
 
     context 'custom values' do
 
-      custom_values = 'blockquote p span b ol'
-      bc = Phil.body_content(custom_values)
+      let(:custom_values)  { 'blockquote p span b ol' }
+      let(:bc) { Phil.body_content(custom_values) }
 
-      it "outputs #{custom_values}" do
+      it 'outputs `blockquote p span b ol`' do
         expect_elements(bc, custom_values)
       end
     end
@@ -310,8 +322,9 @@ describe Phil do
   describe '#date' do
 
     context 'random date' do
-      now = Time.now
-      d = Phil.date
+
+      let(:now) { Time.now }
+      let(:d) { Phil.date }
 
       it 'returns a date' do
         expect(d).to be_a(Time)
@@ -324,8 +337,8 @@ describe Phil do
 
     context 'custom date window' do
 
-      month_ago = Time.now - 86400 * 30
-      d = Phil.date 30
+      let(:month_ago) { Time.now - 86400 * 30 }
+      let(:d) { Phil.date 30 }
 
       it 'returns a date in the last 30 days' do
         expect(month_ago.to_f..Time.now.to_f).to cover(d.to_f)
@@ -338,14 +351,14 @@ describe Phil do
 
     context 'default currency' do
 
-      amount = 10..100
-      c = Phil.currency amount
+      let(:amount) { 10..100 }
+      let(:c) { Phil.currency amount }
 
       it 'returns a string with a dollar value' do
         expect(c).to start_with('$')
       end
 
-      it "returns a dollar value within #{amount}" do
+      it "returns a dollar value within 10..100" do
         expect(amount).to cover(c.gsub('$', '').to_f)
       end
 
@@ -360,7 +373,7 @@ describe Phil do
 
     context 'default phone format' do
 
-      p = Phil.phone
+      let(:p) { Phil.phone }
 
       it "returns a phone number formatted as (###) ###-####" do
         expect(p).to match(/\(\d{3}\) \d{3}-\d{4}/)
@@ -369,10 +382,10 @@ describe Phil do
 
     context 'custom phone format' do
 
-      format = '(0##) ########'
-      p = Phil.phone(format)
+      let(:format) { '(0##) ########' }
+      let(:p) { Phil.phone(format) }
 
-      it "returns a phone number formatted as #{format}" do
+      it "returns a phone number formatted as `(0##) ########`" do
         expect(p).to match(/\(0\d{2}\) \d{8}/)
       end
 
@@ -384,14 +397,14 @@ describe Phil do
     subject { Phil.number argument }
 
     context '3 digit number' do
-      let!(:argument) { 3 }
+      let(:argument) { 3 }
       it 'returns a 3 digit number' do
         expect(subject.to_s).to match(/^\d{3}$/)
       end
     end
 
     context '6 digit number' do
-      let!(:argument) { 6 }
+      let(:argument) { 6 }
       it 'returns a 6 digit number' do
         expect(subject.to_s).to match(/^\d{6}$/)
       end
