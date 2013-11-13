@@ -306,4 +306,32 @@ describe Phil do
 
   end
 
+
+  describe '#date' do
+
+    context 'random date' do
+      now = Time.now
+      d = Phil.date
+
+      it 'returns a date' do
+        expect(d).to be_a(Time)
+      end
+
+      it 'returns a date between 1969 and now' do
+        expect(0..now.to_f).to cover(d.to_f)
+      end
+    end
+
+    context 'custom date window' do
+
+      month_ago = Time.now - 86400 * 30
+      d = Phil.date 30
+
+      it 'returns a date in the last 30 days' do
+        expect(month_ago.to_f..Time.now.to_f).to cover(d.to_f)
+      end
+    end
+
+  end
+
 end
