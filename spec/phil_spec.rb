@@ -10,11 +10,11 @@ describe Phil do
     end
   end
 
-  def find_children(content, tag)
-    Ox.parse(content).nodes.find_all{ |n| n.value == tag }
+  def find_children(content, tag = nil)
+    Ox.parse(content).nodes.find_all{ |n| tag ? tag == n.value : true }
   end
 
-  def find_elements(content, tag)
+  def find_elements(content, tag = nil)
     find_children("<div>#{content}</div>", tag)
   end
 
@@ -25,7 +25,7 @@ describe Phil do
 
   def expect_elements(content, tags)
     t = tags.split(' ')
-    Ox.parse("<div>#{content}</div>").nodes.each_with_index do |n, i|
+    find_elements(content).each_with_index do |n, i|
       expect(n.value).to eq(t[i])
     end
   end
