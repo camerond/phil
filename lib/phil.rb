@@ -58,6 +58,10 @@ module Phil
       sprintf("$%.2f", val)
     end
 
+    def number(length)
+      (1..length).map { rand(10) }.join
+    end
+
     def date(day_window = nil)
       t = Time.now.to_f
       Time.at(day_window ? t - rand * day_window * 86400 : t * rand)

@@ -378,4 +378,25 @@ describe Phil do
 
     end
   end
+
+  describe '#number' do
+
+    subject { Phil.number argument }
+
+    context '3 digit number' do
+      let!(:argument) { 3 }
+      it 'returns a 3 digit number' do
+        expect(subject.to_s).to match(/^\d{3}$/)
+      end
+    end
+
+    context '6 digit number' do
+      let!(:argument) { 6 }
+      it 'returns a 6 digit number' do
+        expect(subject.to_s).to match(/^\d{6}$/)
+      end
+    end
+  end
+
+
 end
