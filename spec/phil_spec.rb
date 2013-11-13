@@ -3,15 +3,19 @@ require 'spec_helper'
 describe Phil do
 
   def count_words(content)
-    content.split(' ').length
+    if content.is_a? String
+      content.split(' ').length
+    else
+      content.nodes[0].split(' ').length
+    end
   end
 
-  def count_elements(tag, content)
-    content.scan(/<#{tag}>(.*?)<\/#{tag}>/).size
+  def find_children(tag, content)
+    Ox.parse(content).nodes.find_all{ |n| n.value == tag }
   end
 
-  def each_element(tag, content)
-    content.scan(/<#{tag}>(.[^<>]*)<\/#{tag}>/).each {|str| yield(str.join) }
+  def find_elements(tag, content)
+    find_children(tag, "<div>#{content}</div>")
   end
 
   def expect_element(tag, content)
@@ -115,114 +119,114 @@ describe Phil do
     context 'with a single number' do
       let(:argument) { 5 }
       it 'outputs 5 paragraphs' do
-        expect(subject.split('</p><p>').length).to eq(argument)
+        expect(find_elements('p', subject).size).to eq(argument)
       end
     end
 
     context 'with a range' do
       let(:argument) { (10..20) }
       it 'outputs 10..20 paragraphs' do
-        expect(argument).to cover(count_elements('p', subject))
+        expect(argument).to cover(find_elements('p', subject).size)
       end
     end
 
   end
 
   describe '#blockquote' do
-
+  
     context 'default value' do
       bq = Phil.blockquote
       it 'outputs a blockquote' do
         expect_element('blockquote', bq)
       end
       it 'contains 1..3 paragraphs' do
-        expect(1..3).to cover(count_elements('p', bq))
+        expect(1..3).to cover(find_children('p', bq).size)
       end
     end
-
+  
     context 'custom value' do
       bq = Phil.blockquote(5..10)
       it 'contains 5..10 paragraphs' do
-        expect(5..10).to cover(count_elements('p', bq))
+        expect(5..10).to cover(find_children('p', bq).size)
       end
     end
-
+  
   end
-
+  
   describe '#ul' do
-
+  
     context 'default value' do
-
+  
       ul = Phil.ul
-
+  
       it 'outputs a ul' do
         expect_element('ul', ul)
       end
       it 'contains 3..10 list items' do
-        expect(3..10).to cover(count_elements('li', ul))
+        expect(3..10).to cover(find_children('li', ul).size)
       end
       it 'each containing 3..15 words' do
-        each_element('li', ul) do |li|
+        find_children('li', ul).each do |li|
           expect(3..15).to cover(count_words(li))
         end
       end
-
+  
     end
-
+  
     context 'custom values' do
-
+  
       li_count = (15..20)
       word_count = (20..22)
       ul = Phil.ul li_count, word_count
-
+  
       it "contains #{li_count} list items" do
-        expect(li_count).to cover(count_elements('li', ul))
+        expect(li_count).to cover(find_children('li', ul).size)
       end
       it "each containing #{word_count} words" do
-        each_element('li', ul) do |li|
+        find_children('li', ul).each do |li|
           expect(word_count).to cover(count_words(li))
         end
       end
-
+  
     end
-
+  
   end
-
+  
   describe '#ol' do
-
+  
     context 'default value' do
-
+  
       ol = Phil.ol
-
+  
       it 'outputs a ol' do
         expect_element('ol', ol)
       end
       it 'contains 3..10 list items' do
-        expect(3..10).to cover(count_elements('li', ol))
+        expect(3..10).to cover(find_children('li', ol).size)
       end
       it 'each containing 3..15 words' do
-        each_element('li', ol) do |li|
+        find_children('li', ol) do |li|
           expect(3..15).to cover(count_words(li))
         end
       end
-
+  
     end
-
+  
     context 'custom values' do
-
+  
       li_count = (15..20)
       word_count = (20..22)
       ol = Phil.ol li_count, word_count
-
+  
       it "contains #{li_count} list items" do
-        expect(li_count).to cover(count_elements('li', ol))
+        expect(li_count).to cover(find_children('li', ol).size)
       end
       it "each containing #{word_count} words" do
-        each_element('li', ol) do |li|
+        find_children('li', ol) do |li|
           expect(word_count).to cover(count_words(li))
         end
       end
-
+  
     end
 
   end
@@ -237,12 +241,31 @@ describe Phil do
         expect_element('ul', ll)
       end
       it 'contains 3..10 list items' do
-        expect(3..10).to cover(count_elements('li', ll))
+        expect(3..10).to cover(find_children('li', ll).size)
       end
       it 'each containing a link with 1..5 words' do
-        each_element('li', ll) do |li|
-          each_element('a', li) do |a|
+        find_children('li', ll) do |li|
+          find_children('a', li) do |a|
             expect(1..5).to cover(count_words(a))
+          end
+        end
+      end
+
+    end
+
+    context 'custom values' do
+
+      li_count = (15..20)
+      word_count = (20..22)
+      ll = Phil.link_list li_count, word_count
+
+      it "contains #{li_count} list items" do
+        expect(li_count).to cover(find_children('li', ll).size)
+      end
+      it "each containing a link with #{word_count} words" do
+        find_children('li', ll) do |li|
+          find_children('a', li) do |a|
+            expect(word_count).to cover(count_words(a))
           end
         end
       end
