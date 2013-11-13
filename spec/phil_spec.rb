@@ -23,6 +23,13 @@ describe Phil do
     expect(content).to end_with "</#{tag}>"
   end
 
+  def expect_elements(tags, content)
+    t = tags.split(' ')
+    Ox.parse("<div>#{content}</div>").nodes.each_with_index do |n, i|
+      expect(n.value).to eq(t[i])
+    end
+  end
+
   describe '#pick' do
 
     subject { Phil.pick(argument) }
@@ -270,6 +277,31 @@ describe Phil do
         end
       end
 
+    end
+
+  end
+
+
+  describe '#body_content' do
+
+    context 'default value' do
+
+      bc = Phil.body_content
+
+      it 'outputs h1 p p h2 p ol h2 p ul' do
+        expect_elements('h1 p p h2 p ol h2 p ul', bc)
+      end
+
+    end
+
+    context 'custom values' do
+
+      custom_values = 'blockquote p span b ol'
+      bc = Phil.body_content(custom_values)
+
+      it "outputs #{custom_values}" do
+        expect_elements(custom_values, bc)
+      end
     end
 
   end
