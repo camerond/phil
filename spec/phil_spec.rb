@@ -334,4 +334,26 @@ describe Phil do
 
   end
 
+  describe '#currency' do
+
+    context 'default currency' do
+
+      amount = 10..100
+      c = Phil.currency amount
+
+      it 'returns a string with a dollar value' do
+        expect(c).to start_with('$')
+      end
+
+      it "returns a dollar value within #{amount}" do
+        expect(amount).to cover(c.gsub('$', '').to_f)
+      end
+
+      it "formats the currency to two decimal places" do
+        expect(c).to match(/\$\d{2}\.\d{2}/)
+      end
+    end
+
+  end
+
 end

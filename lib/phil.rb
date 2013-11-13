@@ -54,7 +54,8 @@ module Phil
     end
 
     def currency(num, symbol = "$")
-      "$#{(pick(num * 100) / 100).round(2)}"
+      val = ((pick(num) * 100) / 100).round(2)
+      sprintf("$%.2f", val)
     end
 
     def date(day_window = nil)
