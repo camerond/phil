@@ -7,7 +7,7 @@ describe Phil do
   end
 
   def count_elements(tag, content)
-    content.scan(/<#{tag}>(.[^<>]*)<\/#{tag}>/).size
+    content.scan(/<#{tag}>(.*?)<\/#{tag}>/).size
   end
 
   def each_element(tag, content)
@@ -220,6 +220,30 @@ describe Phil do
       it "each containing #{word_count} words" do
         each_element('li', ol) do |li|
           expect(word_count).to cover(count_words(li))
+        end
+      end
+
+    end
+
+  end
+
+  describe '#link_list' do
+
+    context 'default value' do
+
+      ll = Phil.link_list
+
+      it 'outputs a ul' do
+        expect_element('ul', ll)
+      end
+      it 'contains 3..10 list items' do
+        expect(3..10).to cover(count_elements('li', ll))
+      end
+      it 'each containing a link with 1..5 words' do
+        each_element('li', ll) do |li|
+          each_element('a', li) do |a|
+            expect(1..5).to cover(count_words(a))
+          end
         end
       end
 
