@@ -1,8 +1,6 @@
 # Phil
 
-__(Work in progress)__
-
-Phil is a lightweight content generation module that wraps around [Ffaker](https://github.com/EmmanuelOga/ffaker/tree/master/lib/ffaker). Mostly syntactic sugar with some convenient extras.
+Phil is a lightweight content generation module that wraps around [Ffaker](https://github.com/EmmanuelOga/ffaker/tree/master/lib/ffaker). You can create large amounts of markup for layout testing with a few simple methods.
 
 A big theme of Phil is that any parameter that can accept a number also accepts a range. This allows for far more utility than vanilla Ffaker when it comes to testing different permutations of content.
 
@@ -40,8 +38,8 @@ Phil.sometimes 100 do
 ### Body content
 
 Generate a ton of body content with one method. This defaults to
-`"h1 p p h2 p ol h2 p ul"`, but you can pass it a string of whatever tags you like,
-including `blockquote`, other headings, and so on.
+`"h1 p p h2 p ol h2 p ul"`, but you can pass it a string of whatever content tags you like,
+including `blockquote`, other headings, and so on. Blockquotes will contain multiple `<p>` elements, paragraphs will contain a few sentences, and most other tags will contain 3-15 words.
 
 ```ruby
 Phil.body_content
@@ -70,19 +68,19 @@ Phil.link_list                          # outputs a <ul> of <li>s with <a>s insi
 Phil.link_list 1..5, 10
 ```
 
-### Assorted convenience methods
+### Assorted other content generation methods
 
 ```ruby
-Phil.date                               # Random date between Dec 31 1969 and now
-Phil.date 7                             # Random date in the last 7 days
-Phil.currency 10..100                   # Price from $10.00 to $100.00
-Phil.currency 10..100, "£"              # Price from £10.00 to £100.00
-Phil.phone                              # Phone defaults to (###)-###-####
+Phil.date                               # Random date object between Dec 31 1969 and now
+Phil.date 7                             # Random date object in the last 7 days
+Phil.currency 10..100                   # Price string from $10.00 to $100.00
+Phil.currency 10..100, "£"              # Prefix different currency symbol
+Phil.phone                              # Defaults to (###)-###-####
 Phil.phone "###-#### x###"
-Phil.number 5                           # Random 5-digit number
+Phil.number 5                           # Random 5-digit number (string)
 ```
 
-### Wrappers for Ffaker
+### Aliased Ffaker methods for convenience
 
 ```ruby
 Phil.domain_name
