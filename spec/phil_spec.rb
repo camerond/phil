@@ -356,4 +356,26 @@ describe Phil do
 
   end
 
+  describe '#phone' do
+
+    context 'default phone format' do
+
+      p = Phil.phone
+
+      it "returns a phone number formatted as (###) ###-####" do
+        expect(p).to match(/\(\d{3}\) \d{3}-\d{4}/)
+      end
+    end
+
+    context 'custom phone format' do
+
+      format = '(0##) ########'
+      p = Phil.phone(format)
+
+      it "returns a phone number formatted as #{format}" do
+        expect(p).to match(/\(0\d{2}\) \d{8}/)
+      end
+
+    end
+  end
 end
