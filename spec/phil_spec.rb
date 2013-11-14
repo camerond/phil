@@ -294,14 +294,14 @@ describe Phil do
   end
 
 
-  describe '#body_content' do
+  describe '#markup' do
 
     context 'default value' do
 
-      let(:bc) { Phil.body_content }
+      let(:m) { Phil.markup }
 
       it 'outputs h1 p p h2 p ol h2 p ul' do
-        expect_elements(bc, 'h1 p p h2 p ol h2 p ul')
+        expect_elements(m, 'h1 p p h2 p ol h2 p ul')
       end
 
     end
@@ -309,10 +309,10 @@ describe Phil do
     context 'custom values' do
 
       let(:custom_values)  { 'blockquote p span b ol' }
-      let(:bc) { Phil.body_content(custom_values) }
+      let(:m) { Phil.markup(custom_values) }
 
       it 'outputs `blockquote p span b ol`' do
-        expect_elements(bc, custom_values)
+        expect_elements(m, custom_values)
       end
     end
 

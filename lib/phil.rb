@@ -49,7 +49,7 @@ module Phil
       build_tag "ul", build_tags("li", -> { "<a href='#'>#{words(item_length)}</a>" }, list_items)
     end
 
-    def body_content(pattern="h1 p p h2 p ol h2 p ul")
+    def markup(pattern="h1 p p h2 p ol h2 p ul")
       pattern.split(" ").map{ |t| tag(t) }.join.html_safe
     end
 
@@ -62,9 +62,17 @@ module Phil
       (1..length).map { rand(10) }.join
     end
 
+    def phone(format = "(###) ###-####")
+      format.gsub(/#/) { rand(9) + 1 }
+    end
+
     def date(day_window = nil)
       t = Time.now.to_f
       Time.at(day_window ? t - rand * day_window * 86400 : t * rand)
+    end
+
+    def city
+      Faker::Address.city
     end
 
     def domain_name
@@ -87,10 +95,6 @@ module Phil
       Faker::Name.name
     end
 
-    def phone(format = "(###) ###-####")
-      format.gsub(/#/) { rand(9) + 1 }
-    end
-
     def state
       Faker::AddressUS.state
     end
@@ -98,6 +102,8 @@ module Phil
     def state_abbr
       Faker::AddressUS.state_abbr
     end
+
+    alias_method :body_content, :markup
 
     private
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phil (0.9.1)
+    phil (0.9.2)
       activesupport
       ffaker
 

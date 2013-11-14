@@ -39,11 +39,11 @@ Phil.sometimes 100 do
 
 Generate a ton of body content with one method. This defaults to
 `"h1 p p h2 p ol h2 p ul"`, but you can pass it a string of whatever content tags you like,
-including `blockquote`, other headings, and so on. Blockquotes will contain multiple `<p>` elements, paragraphs will contain a few sentences, and most other tags will contain 3-15 words.
+including `blockquote`, other headings, and so on. Blockquotes will contain multiple `<p>` elements, paragraphs will contain a few sentences, and any other tags will contain 3-15 words.
 
 ```ruby
-Phil.body_content
-Phil.body_content "h1 p h2 ul p blockquote h5 h6"
+Phil.markup
+Phil.markup "h1 p h2 ul p blockquote h5 h6"
 ```
 
 ### Lorem methods (all take ranges or numbers)
@@ -83,6 +83,7 @@ Phil.number 5                           # Random 5-digit number (string)
 ### Aliased Ffaker methods for convenience
 
 ```ruby
+Phil.city
 Phil.domain_name
 Phil.email
 Phil.name
