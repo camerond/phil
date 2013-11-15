@@ -99,6 +99,61 @@ describe Phil do
 
   end
 
+  describe '#image' do
+
+    subject { Phil.image(*arguments) }
+
+    context 'only one dimension specified' do
+      let(:arguments) { 200 }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200')
+      end
+    end
+
+    context 'only w&h specified' do
+      let(:arguments) { '200x100' }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200x100')
+      end
+    end
+
+    context 'dims & color specified' do
+      let(:arguments) { ['200x100', '#ff0000,#00ff00'] }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00')
+      end
+    end
+
+    context 'dims, color, and text specified' do
+      let(:arguments) { ['200x100', '#ff0000,#00ff00', 'pants'] }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00&text=pants')
+      end
+    end
+
+    context 'parameters specified in any order' do
+      let(:arguments) { ['pants', '#ff0000,#00ff00', '200x100'] }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00&text=pants')
+      end
+    end
+
+    context 'strips illegal characters' do
+      let(:arguments) { [200, 'parachute&pants:% are they; the best?'] }
+      it 'outputs a valid placeholder url' do
+        expect(subject).to eq('http://placehold.it/200&text=parachute+pants:+are+they;+the+best')
+      end
+    end
+
+    context 'bails if size not specified' do
+      let(:arguments) { ['#fff', 'parachute&pants:% are they; the best?'] }
+      it 'doesn\'t try and output a url' do
+        expect(subject).to eq(nil)
+      end
+    end
+
+  end
+
   describe '#words' do
 
     subject { Phil.words(argument) }

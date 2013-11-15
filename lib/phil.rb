@@ -103,6 +103,14 @@ module Phil
       Faker::AddressUS.state_abbr
     end
 
+    def image(*arguments)
+      opts = {}
+      arguments.each do |arg|
+        opts.merge! parse_image_argument(arg.to_s)
+      end
+      opts[:size] && "http://placehold.it/#{opts[:size]}#{opts[:color]}#{opts[:text]}"
+    end
+
     alias_method :body_content, :markup
 
     private
@@ -131,6 +139,17 @@ module Phil
 
     def build_tag(name, content)
       "<#{name}>#{content}</#{name}>".html_safe
+    end
+
+    def parse_image_argument(argument)
+      case argument
+      when /^(#[a-f\d]{3,6}(,(?=#))?){1,2}$/
+        { :color => "/#{argument.gsub(/[#,]/, '#' => '', ',' => '/')}" }
+      when /^\d*x?\d*?$/
+        { :size => argument }
+      else
+        { :text => "&text=#{argument.gsub(/[^\d\w\!,\.;:]+/, '+').gsub(/\+?$/, '')}" }
+      end
     end
 
   end
