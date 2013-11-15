@@ -46,6 +46,19 @@ Phil.markup
 Phil.markup "h1 p h2 ul p blockquote h5 h6"
 ```
 
+### Images
+
+Generate a [placehold.it](http://placehold.it) image URL. Requires dimensions, but you can also request colors (in the format `#background/#foreground`) and containing text. Placehold.it doesn't play nice with some containing text characters so those are stripped out.
+
+You can pass arguments in any order – Phil is reasonably smart about figuring them out.
+
+```ruby
+Phil.image 200                          # http://placehold.it/200
+Phil.image 200x400, #ff0000             # http://placehold.it/200x400/ff0000
+Phil.image 200x400, #ff0000/#00ff00     # http://placehold.it/200x400/ff0000/00ff00
+Phil.image 'Jackie Jormp-Jomp?', 600    # http://placehold.it/600&text=Jackie+Jormp-Jomp
+```
+
 ### Lorem methods (all take ranges or numbers)
 
 ```ruby
