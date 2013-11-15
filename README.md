@@ -54,8 +54,8 @@ You can pass arguments in any order – Phil is reasonably smart about figuring 
 
 ```ruby
 Phil.image 200                          # http://placehold.it/200
-Phil.image 200x400, #ff0000             # http://placehold.it/200x400/ff0000
-Phil.image 200x400, #ff0000/#00ff00     # http://placehold.it/200x400/ff0000/00ff00
+Phil.image '200x400', '#ff0000'         # http://placehold.it/200x400/ff0000
+Phil.image '200x400', '#ff0000/#00ff00' # http://placehold.it/200x400/ff0000/00ff00
 Phil.image 'Jackie Jormp-Jomp?', 600    # http://placehold.it/600&text=Jackie+Jormp-Jomp
 ```
 
