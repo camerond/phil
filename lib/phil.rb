@@ -143,12 +143,12 @@ module Phil
 
     def parse_image_argument(argument)
       case argument
-      when /^(#[a-f\d]{3,6}(,(?=#))?){1,2}$/
-        { :color => "/#{argument.gsub(/[#,]/, '#' => '', ',' => '/')}" }
+      when /^(#[a-f\d]{3,6}(\/(?=#))?){1,2}$/
+        { :color => "/#{argument.gsub('#', '')}" }
       when /^\d*x?\d*?$/
         { :size => argument }
       else
-        { :text => "&text=#{argument.gsub(/[^\d\w\!,\.;:]+/, '+').gsub(/\+?$/, '')}" }
+        { :text => "&text=#{argument.gsub(/[^\d\w\!,\.;:-]+/, '+').gsub(/\+?$/, '')}" }
       end
     end
 

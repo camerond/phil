@@ -118,21 +118,21 @@ describe Phil do
     end
 
     context 'dims & color specified' do
-      let(:arguments) { ['200x100', '#ff0000,#00ff00'] }
+      let(:arguments) { ['200x100', '#ff0000'] }
       it 'outputs a valid placeholder url' do
-        expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00')
+        expect(subject).to eq('http://placehold.it/200x100/ff0000')
       end
     end
 
     context 'dims, color, and text specified' do
-      let(:arguments) { ['200x100', '#ff0000,#00ff00', 'pants'] }
+      let(:arguments) { ['200x100', '#ff0000/#00ff00', 'pants'] }
       it 'outputs a valid placeholder url' do
         expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00&text=pants')
       end
     end
 
     context 'parameters specified in any order' do
-      let(:arguments) { ['pants', '#ff0000,#00ff00', '200x100'] }
+      let(:arguments) { ['pants', '#ff0000/#00ff00', '200x100'] }
       it 'outputs a valid placeholder url' do
         expect(subject).to eq('http://placehold.it/200x100/ff0000/00ff00&text=pants')
       end
