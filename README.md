@@ -50,13 +50,16 @@ Phil.markup "h1 p h2 ul p blockquote h5 h6"
 
 Generate a [placehold.it](http://placehold.it) image URL. Requires dimensions, but you can also request colors (in the format `#background/#foreground`) and containing text. Placehold.it doesn't play nice with some containing text characters so those are stripped out.
 
-You can pass arguments in any order – Phil is reasonably smart about figuring them out.
+You can pass parameters in any order if you like – Phil is reasonably smart about figuring them out – or name them if you're feeling verbose.
 
 ```ruby
 Phil.image 200                          # http://placehold.it/200
 Phil.image '200x400', '#ff0000'         # http://placehold.it/200x400/ff0000
 Phil.image '200x400', '#ff0000/#00ff00' # http://placehold.it/200x400/ff0000/00ff00
 Phil.image 'Jackie Jormp-Jomp?', 600    # http://placehold.it/600&text=Jackie+Jormp-Jomp
+
+# or pass named parameters (you can use ranges for size here)
+Phil.image(text: 'Pants', width: 300, height: (300..500), background: '#ff0000', foreground: '#0000ff')
 ```
 
 ### Lorem methods (all take ranges or numbers)

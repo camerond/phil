@@ -104,10 +104,8 @@ module Phil
     end
 
     def image(*arguments)
-      opts = {}
-      arguments.each do |arg|
-        opts.merge! parse_image_argument(arg.to_s)
-      end
+      opts = arguments.extract_options!
+      opts = format_image_argument_output(opts.merge! parse_image_arguments(arguments))
       opts[:size] && "http://placehold.it/#{opts[:size]}#{opts[:color]}#{opts[:text]}"
     end
 
@@ -141,15 +139,45 @@ module Phil
       "<#{name}>#{content}</#{name}>".html_safe
     end
 
-    def parse_image_argument(argument)
-      case argument
-      when /^(#[a-f\d]{3,6}(\/(?=#))?){1,2}$/
-        { :color => "/#{argument.gsub('#', '')}" }
-      when /^\d*x?\d*?$/
-        { :size => argument }
-      else
-        { :text => "&text=#{argument.gsub(/[^\d\w\!,\.;:-]+/, '+').gsub(/\+?$/, '')}" }
+    def convert_range(str)
+      range_ends = str.split('..')
+      str = range_ends[1] ? range_ends[0]..range_ends[1] : range_ends[0]
+    end
+
+    def parse_image_arguments(args)
+      output = {}
+      args.each do |arg|
+        case arg.to_s
+          when /^(#[a-f\d]{3,6}(\/(?=#))?){1,2}$/
+            output[:color] = arg
+          when /^([\d\.]*)x?([\d\.]*?)$/
+            output[:size] = arg
+          else
+            output[:text] = arg
+          end
+        end
+      output
+    end
+
+    def format_image_argument_output(args)
+
+      if !args[:color]
+        args[:color] = "#{args[:background]}#{args[:foreground]}"
       end
+
+      if args[:width] && args[:height]
+        args[:size] = "#{Phil.pick(args[:width])}x#{Phil.pick(args[:height])}"
+      end
+
+      args.each do |k, v|
+        case k
+        when /color/
+          args[k] = v.gsub(/\/?#/, '/')
+        when /text/
+          args[:text] = "&text=#{v.gsub(/[^\d\w\!,\.;:-]+/, '+').gsub(/\+?$/, '')}"
+        end
+      end
+
     end
 
   end

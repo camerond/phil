@@ -152,6 +152,31 @@ describe Phil do
       end
     end
 
+    context 'parameters can be passed by name' do
+      let(:subject) do
+        args = {
+          width: 200,
+          height: 100,
+          background: '#000',
+          foreground: '#fff',
+          text: 'pants'
+        }
+        Phil.image(args)
+      end
+      it 'accepts all named parameters' do
+        expect(subject).to eq('http://placehold.it/200x100/000/fff&text=pants')
+      end
+    end
+
+    context 'dims specified in range' do
+      let(:subject) { Phil.image(width: (100..200), height: (300..400)) }
+      it 'outputs a valid placeholder url' do
+        range_matches = subject.match(/http:\/\/placehold\.it\/(\d+)x(\d+)/)
+        expect(100..200).to cover(range_matches[1].to_i)
+        expect(300..400).to cover(range_matches[2].to_i)
+      end
+    end
+    
   end
 
   describe '#words' do
