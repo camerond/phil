@@ -1,3 +1,7 @@
+### 0.9.4
+
+* Allow `image` method to take named parameters, like a good Ruby developer
+
 ### 0.9.3
 
 * Add Placehold.it support
