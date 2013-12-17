@@ -1,3 +1,7 @@
+### 0.9.5
+
+* explicit require to ffaker
+
 ### 0.9.4
 
 * Allow `image` method to take named parameters, like a good Ruby developer

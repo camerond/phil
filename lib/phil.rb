@@ -1,3 +1,5 @@
+require 'ffaker'
+
 module Phil
 
   class << self
