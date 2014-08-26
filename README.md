@@ -94,16 +94,19 @@ Phil.currency 10..100, "£"              # Prefix different currency symbol
 Phil.phone                              # Defaults to (###)-###-####
 Phil.phone "###-#### x###"
 Phil.number 5                           # Random 5-digit number (string)
+Phil.number 5..10                       # Number 5-10 digits long
 ```
 
 ### Aliased Ffaker methods for convenience
 
 ```ruby
+Phil.address
 Phil.city
+Phil.state_abbr
 Phil.domain_name
 Phil.email
 Phil.name
 Phil.first_name
 Phil.last_name
-Phil.state_abbr
+Phil.company_name
 ```

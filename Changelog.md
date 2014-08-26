@@ -1,3 +1,8 @@
+### 0.9.6
+
+* allow Phil.number to take a range
+* added street address and company name aliases
+
 ### 0.9.5
 
 * explicit require to ffaker
