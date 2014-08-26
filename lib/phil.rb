@@ -61,7 +61,7 @@ module Phil
     end
 
     def number(length)
-      (1..length).map { rand(10) }.join
+      (1..pick(length)).map { rand(10) }.join
     end
 
     def phone(format = "(###) ###-####")

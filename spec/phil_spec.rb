@@ -176,7 +176,7 @@ describe Phil do
         expect(300..400).to cover(range_matches[2].to_i)
       end
     end
-    
+
   end
 
   describe '#words' do
@@ -483,10 +483,10 @@ describe Phil do
       end
     end
 
-    context '6 digit number' do
-      let(:argument) { 6 }
-      it 'returns a 6 digit number' do
-        expect(subject.to_s).to match(/^\d{6}$/)
+    context '3-6 digit number' do
+      let(:argument) { 3..6 }
+      it 'returns a 3 to 5 digit number' do
+        expect(subject).to match(/^\d{3,5}$/)
       end
     end
   end
