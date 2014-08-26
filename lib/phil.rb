@@ -101,7 +101,7 @@ module Phil
       Faker::Company.name
     end
 
-    def address(include_secondary = false))
+    def address(include_secondary = false)
       Faker::Address.street_address(include_secondary)
     end
 
