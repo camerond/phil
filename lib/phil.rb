@@ -97,6 +97,14 @@ module Phil
       Faker::Name.name
     end
 
+    def company_name
+      Faker::Company.name
+    end
+
+    def address(include_secondary = false))
+      Faker::Address.street_address(include_secondary)
+    end
+
     def state
       Faker::AddressUS.state
     end
