@@ -496,8 +496,8 @@ describe Phil do
 
     context '3-6 digit number' do
       let(:argument) { 3..6 }
-      it 'returns a 3 to 5 digit number' do
-        expect(subject).to match(/^\d{3,5}$/)
+      it 'returns a 3 to 6 digit number' do
+        expect(subject).to match(/^\d{3,6}$/)
       end
     end
   end
