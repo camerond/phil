@@ -1,3 +1,8 @@
+### 0.9.7
+
+* allow Phil.date to specify a day range (e.g. 7-15 days ago)
+* allow Phil.currency to output a random amount of cents as well
+
 ### 0.9.6
 
 * allow Phil.number to take a range

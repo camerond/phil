@@ -89,7 +89,8 @@ Phil.link_list 1..5, 10
 ```ruby
 Phil.date                               # Random date object between Dec 31 1969 and now
 Phil.date 7                             # Random date object in the last 7 days
-Phil.currency 10..100                   # Price string from $10.00 to $100.00
+Phil.date 7-14                          # Random date object in the last 7-14 days
+Phil.currency 10..100                   # Price string from $10.00 to $100.99
 Phil.currency 10..100, "£"              # Prefix different currency symbol
 Phil.phone                              # Defaults to (###)-###-####
 Phil.phone "###-#### x###"
