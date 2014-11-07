@@ -425,6 +425,17 @@ describe Phil do
       end
     end
 
+    context 'custom date window range' do
+
+      let(:two_months_ago) { Time.now - 86400 * 60 }
+      let(:month_ago) { Time.now - 86400 * 30 }
+      let(:d) { Phil.date 30..60 }
+
+      it 'returns a date in the last 30-60 days' do
+        expect(two_months_ago.to_f..month_ago.to_f).to cover(d.to_f)
+      end
+    end
+
   end
 
   describe '#currency' do

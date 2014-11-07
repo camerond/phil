@@ -69,8 +69,14 @@ module Phil
     end
 
     def date(day_window = nil)
-      t = Time.now.to_f
-      Time.at(day_window ? t - rand * day_window * 86400 : t * rand)
+      now = Time.now.to_f
+      if !day_window
+        Time.at(now * rand)
+      elsif day_window.respond_to?(:to_a)
+        Time.at(now - pick(day_window) * 86400)
+      else
+        Time.at(now - rand * day_window * 86400)
+      end
     end
 
     def city
