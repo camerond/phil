@@ -56,7 +56,7 @@ module Phil
     end
 
     def currency(num, symbol = "$")
-      val = ((pick(num) * 100) / 100).round(2)
+      val = ((pick(num) * 100) / 100).round(2) + pick(0..99).to_f / 100
       sprintf("$%.2f", val)
     end
 
