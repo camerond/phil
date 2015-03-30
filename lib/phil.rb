@@ -27,11 +27,11 @@ module Phil
     end
 
     def words(num)
-      Faker::Lorem.words(pick(num)).join(' ').html_safe
+      FFaker::Lorem.words(pick(num)).join(' ').html_safe
     end
 
     def paragraphs(num)
-      content_method = -> { Faker::Lorem.paragraphs(1).join }
+      content_method = -> { FFaker::Lorem.paragraphs(1).join }
       build_tags "p", content_method, pick(num)
     end
 
@@ -80,43 +80,43 @@ module Phil
     end
 
     def city
-      Faker::Address.city
+      FFaker::Address.city
     end
 
     def domain_name
-      Faker::Internet.domain_name
+      FFaker::Internet.domain_name
     end
 
     def email
-      Faker::Internet.email
+      FFaker::Internet.email
     end
 
     def first_name
-      Faker::Name.first_name
+      FFaker::Name.first_name
     end
 
     def last_name
-      Faker::Name.last_name
+      FFaker::Name.last_name
     end
 
     def name
-      Faker::Name.name
+      FFaker::Name.name
     end
 
     def company_name
-      Faker::Company.name
+      FFaker::Company.name
     end
 
     def address(include_secondary = false)
-      Faker::Address.street_address(include_secondary)
+      FFaker::Address.street_address(include_secondary)
     end
 
     def state
-      Faker::AddressUS.state
+      FFaker::AddressUS.state
     end
 
     def state_abbr
-      Faker::AddressUS.state_abbr
+      FFaker::AddressUS.state_abbr
     end
 
     def image(*arguments)
