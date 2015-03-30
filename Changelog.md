@@ -1,3 +1,7 @@
+### 0.9.8
+
+* Update to FFaker 2.0.0
+
 ### 0.9.7
 
 * allow Phil.date to specify a day range (e.g. 7-15 days ago)
