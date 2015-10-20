@@ -26,7 +26,7 @@ module Phil
       end
     end
 
-    def words(num)
+    def words(num = (5..20))
       FFaker::Lorem.words(pick(num)).join(' ').html_safe
     end
 

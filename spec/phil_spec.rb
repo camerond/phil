@@ -181,9 +181,21 @@ describe Phil do
 
   describe '#words' do
 
-    subject { Phil.words(argument) }
+    context 'with no argument' do
+
+      subject { Phil.words }
+
+      let(:default) { (5..20) }
+
+      it 'outputs 5..20 words' do
+        expect(default).to cover(subject.split(' ').length)
+      end
+    end
+
 
     context 'with a single number' do
+
+      subject { Phil.words(argument) }
 
       let(:argument) { 5 }
 
@@ -193,6 +205,8 @@ describe Phil do
     end
 
     context 'with a range' do
+
+      subject { Phil.words(argument) }
 
       let(:argument) { (10..20) }
 
