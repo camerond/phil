@@ -30,7 +30,7 @@ module Phil
       FFaker::Lorem.words(pick(num)).join(' ').html_safe
     end
 
-    def paragraphs(num)
+    def paragraphs(num = (1..3))
       content_method = -> { FFaker::Lorem.paragraphs(1).join }
       build_tags "p", content_method, pick(num)
     end

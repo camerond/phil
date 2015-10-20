@@ -219,9 +219,21 @@ describe Phil do
 
   describe '#paragraphs' do
 
-    subject { Phil.paragraphs(argument) }
+    context 'with no argument' do
+
+      subject { Phil.paragraphs }
+
+      let(:default) { (1..3) }
+
+      it 'outputs 1..3 paragraphs' do
+        expect(default).to cover(find_elements(subject, 'p').size)
+      end
+    end
+
 
     context 'with a single number' do
+
+      subject { Phil.paragraphs(argument) }
 
       let(:argument) { 5 }
 
@@ -231,6 +243,8 @@ describe Phil do
     end
 
     context 'with a range' do
+
+      subject { Phil.paragraphs(argument) }
 
       let(:argument) { (10..20) }
 
