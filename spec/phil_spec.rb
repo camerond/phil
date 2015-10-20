@@ -427,8 +427,8 @@ describe Phil do
 
     context 'custom date window range' do
 
-      let(:two_months_ago) { Time.now - 86400 * 60 }
-      let(:month_ago) { Time.now - 86400 * 30 }
+      let(:two_months_ago) { Time.now - 86400 * 60 - 1 }
+      let(:month_ago) { Time.now - 86400 * 30 + 1 }
       let(:d) { Phil.date 30..60 }
 
       it 'returns a date in the last 30-60 days' do
