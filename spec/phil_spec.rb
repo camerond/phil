@@ -454,7 +454,7 @@ describe Phil do
       end
 
       it "formats the currency to two decimal places" do
-        expect(c).to match(/\$\d{2}\.\d{2}/)
+        expect(c).to match(/\$\d{2,3}\.\d{2}/)
       end
     end
 
