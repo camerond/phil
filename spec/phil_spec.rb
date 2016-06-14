@@ -470,14 +470,14 @@ describe Phil do
 
     context 'default currency' do
 
-      let(:amount) { 10..100 }
+      let(:amount) { 10..100.99 }
       let(:c) { Phil.currency amount }
 
       it 'returns a string with a dollar value' do
         expect(c).to start_with('$')
       end
 
-      it "returns a dollar value within 10..100" do
+      it "returns a dollar value within 10..100.99" do
         expect(amount).to cover(c.gsub('$', '').to_f)
       end
 
