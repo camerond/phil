@@ -65,9 +65,11 @@ Phil.image(text: 'Pants', width: 300, height: (300..500), background: '#ff0000',
 ### Lorem methods (all take ranges or numbers)
 
 ```ruby
+Phil.words                              # defaults to 5..20
 Phil.words 5
 Phil.words 5..50
 
+Phil.paragraphs                         # defaults to 1..3
 Phil.paragraphs 5                       # outputs HTML markup with <p> elements
 Phil.paragraphs 5..50
 
