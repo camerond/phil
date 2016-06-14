@@ -4,6 +4,15 @@ Phil is a lightweight content generation module that wraps around [Ffaker](https
 
 A big theme of Phil is that any parameter that can accept a number also accepts a range. This allows for far more utility than vanilla Ffaker when it comes to testing different permutations of content.
 
+To get started, run `gem install phil` or add `gem 'phil'` to your
+`Gemfile`. Then add
+
+```
+require 'phil'
+```
+
+wherever you need it.
+
 ## Iteration
 
 Get a random integer from an array or range:
